@@ -1,0 +1,9 @@
+.text-svg{
+    stroke: red;
+    stroke-width: 80;
+}
+.rect{
+    stroke-width:1;
+    fill: none;
+    stroke: red;
+}
