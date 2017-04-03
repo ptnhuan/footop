@@ -1,6 +1,4 @@
-var pngquant = require('imagemin-pngquant');
-var mozjpeg = require('imagemin-mozjpeg');
-var gifsicle = require('imagemin-gifsicle');
+
 
 module.exports = function (grunt) {
 
@@ -34,13 +32,13 @@ module.exports = function (grunt) {
                     {src: 'demo.html', dest: 'css/styles.css'}
                 ]
             },
-
         }, uglify: {
             nenjs: {
                 src: 'js/script.js',
                 dest: 'js/script.min.js',
             }
-        }, htmlmin: {
+        },
+        htmlmin: {
             dist: {
                 options: {
                     removeComments: true,
@@ -48,10 +46,16 @@ module.exports = function (grunt) {
                 },
                 files: [{
                         expand: true,
-                        src: "demo.html",
-                    }]
+                        src: ["demo.html"/*,"demo_1.html","demo_2.html"*/]
+
+                    }],
+                dev:{
+                    src: ["demo.html"/*,"demo_1.html","demo_2.html"*/]
+                }
             }
         },
+        
+
         concat: {
             gopjs: {
                 src: [
@@ -70,46 +74,36 @@ module.exports = function (grunt) {
                 ],
                 dest: 'js/script.js'
             },
-        }, 
-//        imagemin: {
-//            png: {
-//                options: {
-//                    optimizationLevel: 7
-//                },
-//                files: [
-//                    {
-//                        expand: true,
-//                        cwd: 'images/', //current working directory
-//                        src: ['**/*.png'],
-//                        dest: 'imgmin/', // destination -- will be created
-//                        ext: '.png'
-//                    }
-//                ]
-//            },
-//            jpg: {
-//                options: {
-//                    progressive: true
-//                },
-//                files: [
-//                    {
-//                        expand: true,
-//                        cwd: 'images/',
-//                        src: ['**/*.JPG'],
-//                        dest: 'imgmin/',
-//                        ext: '.jpg'
-//                    }
-//                ]
+//            gophtml:{
+//                src: [
+//                    'demo.html',
+//                    'demo_1.html',
+//                    'demo_2.html'
+//                ],
+//                dest: 'min.html'
 //            }
-//        },
-
+        },
+        imagemin: {
+            dist: {
+                options: {
+                    optimizationLevel: 5
+                },
+                files: [{
+                        expand: true,
+                        cwd: "images/",
+                        src: ["**/*.{png,jpg,gif}"],
+                        dest: "imgmin/"
+                    }]
+            }
+        },
         watch: {
             less: {
                 files: ['less/*.less'],
-                task: ['less', 'cssmin']
+                task: ['less', 'cssmin','uncss']
             },
             htmlmin: {
                 files: ['demo.html'],
-                task: ['htmlhint']
+                task: ['htmlmin']
             },
             scripts: {
                 files: ['js/*.js'],
@@ -118,10 +112,10 @@ module.exports = function (grunt) {
                     spawn: false,
                 }
             },
-//            imageopti: {
-//                files: ['images/*.*'],
-//                tasks: ['imagemin']
-//            }
+            imageopti: {
+                files: ['images/*.*'],
+                tasks: ['imagemin']
+            }
         }
     });
 // Register the default tasks.
@@ -133,5 +127,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-uncss");
     grunt.loadNpmTasks("grunt-contrib-htmlmin");
     grunt.loadNpmTasks("grunt-contrib-imagemin");
-    grunt.registerTask('default', [/*'imagemin',*/ 'less', 'uncss', 'cssmin', 'htmlmin', 'concat', 'uglify', 'watch']);
+    grunt.registerTask('default', ['imagemin', 'less', 'uncss', 'cssmin', 'htmlmin', 'concat', 'uglify', 'watch']);
 };

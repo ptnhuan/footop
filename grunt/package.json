@@ -19,7 +19,9 @@
     "grunt-ng-annotate": "^0.3.2",
     "grunt-uncss": "^0.4.1",
     "imagemin": "^5.2.2",
-    "matchdep": "^0.3.0"
+    "matchdep": "^0.3.0",
+    "grunt-html-validation": "^0.1.10",
+    "grunt-autoprefixer": "~0.4.0"
   },
   "main": "Gruntfile.js",
   "dependencies": {},
