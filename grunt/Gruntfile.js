@@ -98,23 +98,32 @@ module.exports = function (grunt) {
         },
         watch: {
             less: {
-                files: ['less/*.less'],
-                task: ['less', 'cssmin','uncss']
+                files: 'less/*.less',
+                task: 'less'
+            },
+            cssmin:{
+                files: 'css/*.css',
+                task: 'cssmin'
+            },
+            uncss:{
+                files: 'css/*.css',
+                task: 'uncss'
             },
             htmlmin: {
-                files: ['demo.html'],
-                task: ['htmlmin']
+                files: 'demo.html',
+                task: 'htmlmin',
+                
             },
             scripts: {
-                files: ['js/*.js'],
+                files: 'js/*.js',
                 tasks: ['concat', 'uglify'],
                 options: {
                     spawn: false,
                 }
             },
             imageopti: {
-                files: ['images/*.*'],
-                tasks: ['imagemin']
+                files: 'images/*.*',
+                tasks: 'imagemin'
             }
         }
     });
