@@ -1,7 +1,4 @@
-
-
 module.exports = function (grunt) {
-
 
 // Project configuration.
     grunt.initConfig({
@@ -44,17 +41,29 @@ module.exports = function (grunt) {
                     removeComments: true,
                     collapseWhitespace: true
                 },
+                
+                //nhiều html
+//                files: [{
+//                        expand: true,
+//                        src: ["demo.html"/*,"demo_1.html","demo_2.html"*/]
+//
+//                    }],
+//                dev:{
+//                    src: ["demo.html"/*,"demo_1.html","demo_2.html"*/]
+
+                //chuyển php
+//                }
+//                tasks: ['clean:php'],
+//                files: {
+//                    'index.php': 'demo.html',
+//                }
+
                 files: [{
                         expand: true,
-                        src: ["demo.html"/*,"demo_1.html","demo_2.html"*/]
-
-                    }],
-                dev:{
-                    src: ["demo.html"/*,"demo_1.html","demo_2.html"*/]
-                }
+                        src: "demo.html",
+                }]                             
             }
         },
-        
 
         concat: {
             gopjs: {
@@ -83,10 +92,16 @@ module.exports = function (grunt) {
 //                dest: 'min.html'
 //            }
         },
+        concat_css: {
+            dist: {
+                src: ["css/**/*.css"],
+                dest: "css/styles.css"
+            }
+        },
         imagemin: {
             dist: {
                 options: {
-                    optimizationLevel: 5
+                    optimizationLevel: 3
                 },
                 files: [{
                         expand: true,
@@ -101,18 +116,18 @@ module.exports = function (grunt) {
                 files: 'less/*.less',
                 task: 'less'
             },
-            cssmin:{
+            cssmin: {
                 files: 'css/*.css',
                 task: 'cssmin'
             },
-            uncss:{
+            uncss: {
                 files: 'css/*.css',
                 task: 'uncss'
             },
             htmlmin: {
                 files: 'demo.html',
                 task: 'htmlmin',
-                
+
             },
             scripts: {
                 files: 'js/*.js',
@@ -136,5 +151,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-uncss");
     grunt.loadNpmTasks("grunt-contrib-htmlmin");
     grunt.loadNpmTasks("grunt-contrib-imagemin");
-    grunt.registerTask('default', ['imagemin', 'less', 'uncss', 'cssmin', 'htmlmin', 'concat', 'uglify', 'watch']);
+    grunt.loadNpmTasks('grunt-concat-css');
+    grunt.registerTask('default', ['imagemin', 'less', 'uncss', 'cssmin', 'htmlmin', 'concat', 'uglify', 'concat_css' ,'watch']);
 };
